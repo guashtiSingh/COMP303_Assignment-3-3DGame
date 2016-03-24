@@ -6,13 +6,16 @@ public class PlayerShooting : MonoBehaviour {
 	public Transform flashPoint;
 	public GameObject muzzleFlash;
 	public GameObject bulletImpact;
+	public GameObject Explosion;
 
 	//Private Instance Variable
 	private Transform _transform;
+	private GameController _gameController;
 
 	// Use this for initialization
 	void Start () {
 		this._transform = gameObject.GetComponent<Transform> ();
+		this._gameController = GameObject.FindWithTag ("GameController").GetComponent("GameController") as GameController;
 	} //end if
 	
 	// Update is called once per frame
@@ -27,7 +30,13 @@ public class PlayerShooting : MonoBehaviour {
 			RaycastHit hit; //stores information from the Ray;
 
 			if(Physics.Raycast(this._transform.position, this._transform.forward,out hit, 50f)){
-				Instantiate (this.bulletImpact, hit.point, Quaternion.identity);
+				if(hit.transform.gameObject.CompareTag("Crate")) {
+					Instantiate(this.Explosion, hit.point, Quaternion.identity);
+					Destroy (hit.transform.gameObject);
+					this._gameController.ScoreValue = 10;
+				} else {
+					Instantiate (this.bulletImpact, hit.point, Quaternion.identity);
+				}
 			}
 		} //end if
 	}
