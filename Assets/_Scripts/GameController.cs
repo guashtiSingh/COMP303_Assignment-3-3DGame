@@ -7,6 +7,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
 	//Private Instance Variables
@@ -66,22 +67,23 @@ public class GameController : MonoBehaviour {
 		this._playerSpawnPoint = new Vector3 (0f, 1.6f, -5f);
 		this.ScoreValue = 0;
 		this.LivesValue = 5;
-		this.GameOverLabel.enabled = false;
-		this.HighScoreLabel.enabled = false;
+		this.GameOverLabel.gameObject.SetActive(false);
+		this.HighScoreLabel.gameObject.SetActive(false);
 		this.RestartButton.gameObject.SetActive(false);
 	}
 
 	private void _endGame() {
 		this.HighScoreLabel.text = "High Score: " + this._scoreValue;
-		this.GameOverLabel.enabled = true;
-		this.HighScoreLabel.enabled = true;
-		this.LivesLabel.enabled = false;
-		this.ScoreLabel.enabled = false;
-		this.RestartButton.gameObject.SetActive(true);
+		this.GameOverLabel.gameObject.SetActive (true);
+		this.HighScoreLabel.gameObject.SetActive (true);
+		this.LivesLabel.gameObject.SetActive (false);
+		this.ScoreLabel.gameObject.SetActive (false);
+		this.RestartButton.gameObject.SetActive (true);
 	}
 
-	//Public Methods
+	// PUBLIC METHODS
+
 	public void RestartButtonClick() {
-		Application.LoadLevel ("Main");
+		SceneManager.LoadScene (SceneManager.GetActiveScene().name);
 	}
 }

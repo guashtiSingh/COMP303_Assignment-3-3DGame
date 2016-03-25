@@ -28,14 +28,29 @@ public class PlayerShooting : MonoBehaviour {
 			Instantiate (this.muzzleFlash, flashPoint.position, Quaternion.identity);
 		
 			RaycastHit hit; //stores information from the Ray;
+			RaycastHit hitChest;
 
-			if(Physics.Raycast(this._transform.position, this._transform.forward,out hit, 50f)){
-				if(hit.transform.gameObject.CompareTag("Crate")) {
-					Instantiate(this.Explosion, hit.point, Quaternion.identity);
+			if (Physics.Raycast (this._transform.position, this._transform.forward, out hit, 50f)) {
+				if (hit.transform.gameObject.CompareTag ("Crate")) {
+					Instantiate (this.Explosion, hit.point, Quaternion.identity);
 					Destroy (hit.transform.gameObject);
-					this._gameController.ScoreValue = 10;
+					this._gameController.ScoreValue += 10;
 				} else {
 					Instantiate (this.bulletImpact, hit.point, Quaternion.identity);
+				}
+			}
+
+			if(Physics.Raycast (this._transform.position, this._transform.forward, out hitChest, 30f)) {
+				if (hitChest.transform.gameObject.CompareTag ("Chest_top")) {
+					Instantiate (this.Explosion, hitChest.point, Quaternion.identity);
+					Destroy (hitChest.transform.gameObject);
+					this._gameController.ScoreValue += 1000;
+					this._gameController.LivesValue = 0;
+				} else if (hitChest.transform.gameObject.CompareTag ("Chest_bot")) {
+					Instantiate (this.Explosion, hitChest.point, Quaternion.identity);
+					Destroy (hitChest.transform.gameObject);
+					this._gameController.ScoreValue += 1000;
+					this._gameController.LivesValue = 0;
 				}
 			}
 		} //end if

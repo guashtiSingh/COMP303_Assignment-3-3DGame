@@ -47,6 +47,7 @@
   <ItemGroup>
      <Compile Include="Assets\_Scripts\DeathPlaneController.cs" />
      <Compile Include="Assets\_Scripts\GameController.cs" />
+     <Compile Include="Assets\_Scripts\PlayerFollow.cs" />
      <Compile Include="Assets\_Scripts\PlayerShooting.cs" />
      <Compile Include="Assets\_StandardAssets\Characters\FirstPersonCharacter\Scripts\FirstPersonController.cs" />
      <Compile Include="Assets\_StandardAssets\Characters\FirstPersonCharacter\Scripts\HeadBob.cs" />
